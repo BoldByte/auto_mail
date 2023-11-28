@@ -1,0 +1,108 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+}
+  
+.container {
+    flex: 1;
+}
+  
+.features {
+    padding: 50px 0;
+}
+  
+.features h2 {
+    margin-bottom: 30px;
+}
+  
+.feature {
+    margin-bottom: 20px;
+}
+  
+.card {
+    margin: 10px;
+}
+
+#PricingSection {
+    margin-top: 50px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+/* Investor page css */
+.investor-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.investor-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.investor-list li {
+    margin-bottom: 10px;
+}
+
+.add-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+/* mail page css */  
+/* .mail-header {
+    /* background-color: #333; *
+    color: #fff;
+    padding: 20px;
+}
+  
+.mail-header h1 {
+    margin: 0;
+} */
+  
+main {
+    padding: 20px;
+}
+  
+#emailForm {
+    display: grid;
+    grid-gap: 10px;
+}
+  
+#emailForm label {
+    font-weight: bold;
+}
+  
+#emailForm input[type="text"], #emailForm textarea {
+    width: 100%;
+    padding: 5px;
+}
+  
+/* #emailForm button {
+    padding: 10px 20px;
+    /* background-color: #333; *
+    color: #fff;
+    border: none;
+    cursor: pointer;
+} */
+  
+  
+
+@media (min-width: 992px) {
+    .navbar .navbar-nav {
+      display: flex;
+      justify-content: center;
+    }
+}
+  

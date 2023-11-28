@@ -1,0 +1,284 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Automation Homepage</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/f540c9d3c0.js" crossorigin="anonymous"></script>
+  <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'css\styles.css' %}">
+  <style>
+    .btn-group {
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btn-group button:last-child,.btn-group a:last-child {
+        margin-right: 0;
+    }
+    .form-group {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 20px;
+        flex-wrap: nowrap;
+        align-items: flex-end;
+    }
+
+    .form-group label {
+      display: inline-block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input[type="text"] /*.form-group textarea */{
+      border: none;
+      border-bottom: 2px solid #ccc;
+      padding: 5px;
+      outline: none;
+      transition: border-bottom-color 0.3s;
+    }
+
+    .form-group input[type="text"]:focus{ 
+      border-bottom-color: #333;
+      font-weight: bold;
+    }
+
+    .btn-send {
+      margin-left: auto;
+    }
+    
+    .format-bar, .insert-bar{
+      display: none;
+      margin-bottom: 10px;
+      padding-top: 10px;
+    }
+
+    .format-bar button {
+      margin-right: 5px;
+    }
+
+    .format-bar select {
+      margin-right: 5px;
+    }
+
+    .format-bar.show, .insert-bar.show{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    
+
+    .insert-bar button {
+        background-color: #fff;
+        border: none;
+        padding: 5px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .insert-bar button:last-child {
+        margin-right: 0;
+    }
+    .mail-animation {
+  font-size: 5em;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  /* background: rgba(0,0,0,0.5); */
+  padding: 50px;
+  border-radius: 10px;
+}
+
+/* .mail-animation.sent {
+  animation: spin 1s linear, flyOff 1s linear 1s;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes flyOff {
+  0% { transform: translate(-50%, -50%); }
+  100% { transform: translate(-50%, -150%); }
+}
+    
+    @media (max-width: 600px) {
+        .format-bar button,.format-bar select {
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .format-bar button,.format-bar select {
+            font-size: 12px;
+        }
+    } */
+    .mail-animation {
+  font-size: 5em;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  /* background: rgba(0,0,0,0.5); */
+  padding: 50px;
+  border-radius: 10px;
+}
+
+.mail-animation.sent {
+  animation: spin 1s linear, flyOff 1s linear 1s;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes flyOff {
+  0% { transform: translate(-50%, -50%); }
+  100% { transform: translate(-150%, -150%); }
+}
+/* modal styling */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 300px;
+  text-align: center;
+}
+
+  </style>
+</head>
+<body>
+  <header class="bg-primary text-bg-primary">
+    <a class="nav-link" href="{% url 'home' %}"><h2>Mail Page</h2></a>
+  </header>
+  <main>
+    <!-- mail form -->
+    <form method="POST" id="emailForm" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group user-box">
+        <label for="id_to_email">Selected_Investors:</label>
+        <input type="text" name="to_email" id="id_to_email">
+        &nbsp;<label id="investorNameSpan"></label>
+      </div>
+      <div class="form-group user-box">
+        <label for="id_subject">Subject:</label>
+        <input type="text" name="subject" maxlength="100" required id="id_subject">
+      </div>
+
+      <div class="django-ckeditor-widget" data-field-id="id_message" style="display: inline-block;">
+        <textarea name="message" cols="50" rows="10" required id="id_message" data-processed="0" data-config="{&quot;skin&quot;: &quot;moono-lisa&quot;, &quot;toolbar_Basic&quot;: [[&quot;Source&quot;, &quot;-&quot;, &quot;Bold&quot;, &quot;Italic&quot;]], &quot;toolbar_Full&quot;: [[&quot;Styles&quot;, &quot;Format&quot;, &quot;Bold&quot;, &quot;Italic&quot;, &quot;Underline&quot;, &quot;Strike&quot;, &quot;SpellChecker&quot;, &quot;Undo&quot;, &quot;Redo&quot;], [&quot;Link&quot;, &quot;Unlink&quot;, &quot;Anchor&quot;], [&quot;Image&quot;, &quot;Flash&quot;, &quot;Table&quot;, &quot;HorizontalRule&quot;], [&quot;TextColor&quot;, &quot;BGColor&quot;], [&quot;Smiley&quot;, &quot;SpecialChar&quot;], [&quot;Source&quot;]], &quot;toolbar&quot;: &quot;full&quot;, &quot;height&quot;: 300, &quot;width&quot;: 600, &quot;filebrowserWindowWidth&quot;: 940, &quot;filebrowserWindowHeight&quot;: 725, &quot;language&quot;: &quot;en-us&quot;}" data-external-plugin-resources="[]" data-id="id_message" data-type="ckeditortype"></textarea>    
+      </div>
+
+      <div class="form-group">
+        <label for="id_attachment">Attachment:</label>
+        <input type="file" name="attachment" multiple id="id_attachment">
+      </div>
+      <button type="submit" id="sendMailButto" class="btn btn-primary btn-send w-25">
+        <b>Send Mail</b>
+      </button>
+      <div id="mailAnimation" class="mail-animation d-none">
+        <i class="fa-regular fa-paper-plane"></i>
+      </div>
+    </form>
+  
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <p><b>Mail sent</b></p>
+      </div>
+    </div>
+    <script>
+      CKEDITOR.replace('id_message');
+    </script>
+    
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer text-center bg-primary">
+    <p class="text-light">&copy; <span id="year"></span> <b>MailAut • Simply Built</b></p>
+  </footer>
+  
+    <script src="{% static 'js\script.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    
+    <script>
+      // Get the input element by its ID
+      var inputElement = document.getElementById("id_to_email");
+      var investorNameSpan = document.getElementById("investorNameSpan");
+
+      var investorList = [
+        {% for investor in selected_investors %}
+          ["{{ investor.name }}", "{{ investor.email }}"],
+        {% endfor %}
+      ];
+
+      const result = investorList.map(function (item) { // name
+        return item[0];
+      });
+      const result2 = investorList.map(function (item) { // email
+        return item[1];
+      });
+
+      // Display investor.name in the <span>
+      investorNameSpan.textContent = result.join(', ');
+
+      // Set the value of the input element
+      inputElement.value = result2.join(', ');
+      inputElement.style.display = "none";
+      inputElement.readOnly = true;
+    </script>    
+
+    <script>
+      // Function to insert text into CKEditor textarea
+      function insertTextIntoCKEditor() {
+        // Check if CKEditor is ready
+        if (typeof CKEDITOR !== 'undefined') {
+          // Get CKEditor instance
+          var editor = CKEDITOR.instances['id_message'];
+          var aiEmail= `{{ mail }}`
+
+          // Replace newline characters with <br> tags
+          aiEmail = aiEmail.replace(/\n/g, '<br>');
+
+          if (editor) {
+            // Insert text into CKEditor
+            editor.setData(aiEmail);
+          }
+        }
+      }
+
+      // Attach the event listener for page load
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', insertTextIntoCKEditor);
+      } else {
+        // Page has already loaded, call the function directly
+        insertTextIntoCKEditor();
+      }
+    </script>
+
+
+</body>
+</html>

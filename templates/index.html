@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Automation Homepage</title>
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/f540c9d3c0.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{% static 'css\styles.css' %}">
+</head>
+<body>
+  {% include 'navbar.html' %}
+  <div class="container mt-3">
+    <section class="hero">
+      <div class="container">
+        <h1>Welcome to our Email Automation Service</h1>
+        <p>Subscribe now to receive the latest updates and promotions.</p>
+        <div class="d-flex justify-content-between">
+          <form class="w-75">
+            <input type="email" class="w-75" placeholder="Enter your email address"> <!-- remove this -->
+          </form>
+          <a href="#" class="btn btn-secondary w-25">
+            <b>Get Started</b>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="container">
+        <h1 class="text-center">
+          <b>
+            Features
+          </b>
+        </h1>
+        <div class="row">
+          <div class="feature col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <!-- <i class="fa fa-envelope"></i> -->
+                <h3 class="card-title text-center">&#x2709; Email Campaigns</h3>
+                <p class="card-text">Create and send personalized email campaigns to your subscribers.</p>
+              </div>
+            </div>
+          </div>
+          <div class="feature col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <!-- <i class="fa fa-chart-line"></i> -->
+                <h3 class="card-title text-center"> &#x1F4CA; Analytics</h3>
+                <p class="card-text">Track the performance of your email campaigns with detailed analytics.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Pricing -->
+  <div id="PricingSection">
+    <div class="text-center">
+      <h1><b>Pricing</b></h1>
+    </div>
+    <div class="container row m-auto">
+      <div class="col">
+        <div class="card col">
+          <h5 class="card-header text-center">Free</h5>
+          <div class="card-body text-center">
+            <h1 class="card-title">$0<span class="text-secondary">/mo</span></h1>
+            <p class="card-text">10 Users included</p>
+            <p class="card-text">2 GB of storage</p>
+            <p class="card-text">Email support</p>
+            <p class="card-text">Help center access</p>
+            <a href="#" class="btn btn-outline-primary w-75 ">
+              <b>Sign up for free</b>
+            </a> <!-- ps-5 pe-5 -->
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <h5 class="card-header text-center">Pro</h5>
+          <div class="card-body text-center">
+            <h1 class="card-title">$15<span class="text-secondary">/mo</span></h1>
+            <p class="card-text">20 Users included</p>
+            <p class="card-text">10 GB of storage</p>
+            <p class="card-text">Priority email support</p>
+            <p class="card-text">Help center access</p>
+            <a href="#" class="btn btn-primary w-75">
+              <b>Get Started</b>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card border-primary">
+          <h5 class="card-header text-center bg-primary text-light">Enterprise</h5>
+          <div class="card-body text-center">
+            <h1 class="card-title">$29<span class="text-secondary">/mo</span></h1>
+            <p class="card-text">30 Users included</p>
+            <p class="card-text">15 GB of storage</p>
+            <p class="card-text">Phone and email support</p>
+            <p class="card-text">Help center access</p>
+            <a href="#" class="btn btn-primary w-75">
+              <b>Get Started</b>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- Product -->
+  <div class="text-center mt-5">
+    <h1><b>Products</b></h1>
+  </div>
+  <div class="container row m-auto" id="ProductSection">
+    <div class="col-md-6">
+      <div class="card">
+        <img src="product1.jpg" class="card-img-top" alt="Product 1">
+        <div class="card-body">
+          <h5 class="card-title">Product 1</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <img src="product2.jpg" class="card-img-top" alt="Product 2">
+        <div class="card-body">
+          <h5 class="card-title">Product 2</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer text-center bg-primary">
+    <p class="text-light">&copy; <span id="year"></span> <b>MailAut • Simply Built</b></p>
+  </footer>
+
+  <script src="{% static 'js\script.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>

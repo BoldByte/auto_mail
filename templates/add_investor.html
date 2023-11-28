@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Investor</title>
+</head>
+<body>
+    <a href="{% url 'add_investor' %}">Add Investor</a>
+    <h1>Add Investor</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Investor</button>
+    </form>
+</body>
+</html>
